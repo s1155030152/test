@@ -1,40 +1,27 @@
-var express = require('express');
-var anyDB = require('any-db');
-var config = require('../shop21-ierg4210.config.js');
+var express = require('express'),
+    exphbs  = require('express-handlebars'),
 
-var app = express.Router();
+    // TODO: the file below is not included in the sample code
+  //  frontEndRouter = require('./routes/frontend.js'),
+    backEndRouter = require('./routes/backend.js'),
+    backEndAPIRouter = require('./routes/backend.api.js');
 
-var pool = anyDB.createPool(config.dbURI, {
-	min: 2, max: 10
+var app = express();
+
+// TODO: the default layout is not included in the sample code
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
+
+// TODO: serve static files from the public folder
+// app.use(/**/)
+app.use(express.static(__dirname + '/images'));
+
+// backend routers run first
+app.use('/admin/api', backEndAPIRouter);
+app.use('/admin', backEndRouter);
+// TODO: shift your routes into ./routes/frontend.js
+//app.use('/', frontEndRouter);
+
+app.listen(process.env.PORT || 3000, function () {
+    console.log('Example Server listening at port ' + (process.env.PORT || 3000));
 });
-
-// URL expected: http://hostname/admin
-app.get('/', function (req, res) {
-
-	// async fetch data from SQL, render page when ready
-	pool.query('SELECT * FROM categories', function (error, categories) {
-		if (error) {
-			console.error(error);
-			res.status(500).end();
-			return;
-		}
-
-		pool.query('SELECT * FROM products', function (error, products) {
-			if (error) {
-				console.error(error);
-				res.status(500).end();
-				return;
-			}
-
-			res.render('admin-panel', {
-				layout: 'admin',
-		    	title: 'IERG4210 Shop21 Admin',
-		    	cat: categories.rows,
-		    	prod: products.rows
-		    });
-
-		});
-	});
-});
-
-module.exports = app;

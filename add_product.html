@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="back_style.css"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Add Product</h2>
+      <br>
+      <form role="form">
+        <div class="form-group">
+          <label>Category:</label><br/>
+			<select name="category" id="category" required>
+                  <option value="">--Select--</option>
+                  <option value="roma">Roma</option>
+                  <option value="torino">Torino</option>
+                  <option value="milan">Milan</option>
+                </select>
+        </div>
+        <div class="form-group">
+          <label>Product Name:</label>
+          <input type="text" class="form-control" name="product_name" id="product_name" placeholder="Enter product name" required>
+          <br/>
+          <label>Price:</label>
+          <input type="number" class="form-control" name="product_price" id="product_price" placeholder="Enter price" required>
+          <br/>
+          <label>Description:</label>
+          <textarea class="form-control" name="product_desc" id="product_desc" placeholder="Enter description (250 words max)" maxlength="250" required></textarea>
+          <br/>
+          <label>Photo:</label>
+          <input type="file" name="product_photo" id="product_photo" accept="image/gif, image/jpeg, image/png" value="Browse..." required>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
